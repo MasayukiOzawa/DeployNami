@@ -1,0 +1,25 @@
+version: '2'
+services:
+  mssqlserver:
+    image: microsoft/mssql-server-linux:2017-GA 
+    container_name: MSSQL
+    hostname: SoLC1
+    environment:
+        ACCEPT_EULA: Y
+        SA_PASSWORD: ${SA_PASSWORD}
+        MSSQL_LCID: 1041
+        TZ: Asia/Tokyo
+        MSSQL_COLLATION: Japanese_XJIS_140_CI_AS
+        MSSQL_ENABLE_HADR: Y
+    ports:
+      - "11433:1433"
+    restart: always
+  wordpress:
+    build:
+      context: ./WordPress
+    container_name: Nami
+    ports:
+      - "80:80"
+    depends_on:
+      - mssqlserver
+    restart: always
