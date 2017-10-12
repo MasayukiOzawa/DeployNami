@@ -17,6 +17,7 @@ services:
   wordpress:
     build:
       context: ./WordPress
+    image: project-nami
     container_name: Nami
     ports:
       - "80:80"
